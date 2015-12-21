@@ -11,6 +11,8 @@ using System.Text;
 
 namespace MonsterQuest.Models.Entities.Characters
 {
+    public delegate void GameOverEventHandler(object sender, EventArgs e);
+
     public abstract class Character : Entity, ICharacter
     {
         private const int DefaultPlayerScore = 0;
@@ -49,6 +51,8 @@ namespace MonsterQuest.Models.Entities.Characters
         private IBulletFactory bulletFactory;
         private IData data;
         private Texture2D bulletImage;
+
+        public event GameOverEventHandler PointChanged;
 
         protected Character(Texture2D image,
             int health, int damage, int rows, int cols,
@@ -135,7 +139,7 @@ namespace MonsterQuest.Models.Entities.Characters
                     //new logic
 
                     this.CharacterPosition -= this.Velocity;
-                    if (CharacterPosition.X<0)
+                    if (CharacterPosition.X < 0)
                     {
                         this.CharacterPosition += this.Velocity;
                     }
@@ -154,7 +158,7 @@ namespace MonsterQuest.Models.Entities.Characters
                     //new logic
 
                     this.CharacterPosition += this.Velocity;
-                    if (this.characterPosition.X >700)
+                    if (this.characterPosition.X > 700)
                     {
                         this.characterPosition -= this.Velocity;
                     }
@@ -222,6 +226,11 @@ namespace MonsterQuest.Models.Entities.Characters
                 this.Position = this.characterPosition;
                 previousKeyboardState = keyboardState;
                 timeSinceLastFrame -= millisecondPerFrame;
+
+                if (this.Health < 99)
+                {
+                    OnPointChanged(EventArgs.Empty);
+                }
             }
         }
 
@@ -309,6 +318,12 @@ namespace MonsterQuest.Models.Entities.Characters
         public void IncrementScore(int score)
         {
             this.Score += score;
+        }
+
+        protected virtual void OnPointChanged(EventArgs e)
+        {
+            if (PointChanged != null)
+                PointChanged(this, e);
         }
 
     }

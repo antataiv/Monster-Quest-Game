@@ -1,34 +1,31 @@
-﻿using MonsterQuest.Models.Entities.Characters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using MonsterQuest.Models.Entities.Characters;
 
 namespace MonsterQuest.Core
 {
     public class EventListener
     {
-        //private Elf ElfCharachter;
+        private Character Charachter;
 
-        //public Level GameLevel { get; set; }
+        public bool GameOver { get; set; }
 
-        //public EventListener(Elf elf, Level level)
-        //{
-        //    this.ElfCharachter = elf;
-        //    GameLevel = level;
-        //    // Add "ListChanged" to the Changed event on "List".
-        //    ElfCharachter.PointChanged += new GameOverEventHandler(HandlePointChanged);
-        //}
+        public EventListener(Character character)
+        {
+            Charachter = character;
+            GameOver = false;
+            // Add "ListChanged" to the Changed event on "List".
+            Charachter.PointChanged += new GameOverEventHandler(HandlePointChanged);
+        }
 
-        //// This will be called whenever the list changes.
-        //public void HandlePointChanged(object sender, EventArgs eventArgs)
-        //{
-        //    this.GameLevel = Level.GameOver;
-        //}
+        // This will be called whenever the list changes.
+        public void HandlePointChanged(object sender, EventArgs eventArgs)
+        {
+            this.GameOver = true;
+        }
 
-        //public void Detach()
-        //{
-        //    ElfCharachter.PointChanged -= new GameOverEventHandler(HandlePointChanged);
-        //}
+        public void Detach()
+        {
+            Charachter.PointChanged -= new GameOverEventHandler(HandlePointChanged);
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MonsterQuest.Models.Entities.Characters
 {
-    public delegate void GameOverEventHandler(object sender, EventArgs e);
+    
 
     public class Elf : Character
     {
@@ -24,8 +24,6 @@ namespace MonsterQuest.Models.Entities.Characters
         private const int WalkingLeftLastFrame = 5;
         private const int WalkingRightLastFrame = 10;
 
-        public event GameOverEventHandler PointChanged;
-
         public Elf(Texture2D image, IBulletFactory bulletFactory, IData data,
             Vector2 DefaultElfOffset, Vector2 DefaultElfVelocity, Vector2 DefaultElfPosition)
             : base(image,
@@ -37,12 +35,6 @@ namespace MonsterQuest.Models.Entities.Characters
             this.CharacterPosition = DefaultElfPosition;
             this.Velocity = DefaultElfVelocity;
             this.BoundsOffset = DefaultElfOffset;
-        }
-
-        protected virtual void OnPointChanged(EventArgs e)
-        {
-            if (PointChanged != null)
-                PointChanged(this, e);
         }
 
         public override void Attack()
