@@ -108,6 +108,7 @@ namespace MonsterQuest
 
             foreach (var bullet in player.Bullets)
             {
+                bullet.Update(gameTime);
                 bullet.ApplyDamage(this.data.Enemies);
             }
 

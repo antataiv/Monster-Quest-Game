@@ -34,7 +34,7 @@ namespace MonsterQuest.Models.Bullets
 
         public Vector2 Position { get; protected set; }
 
-        public Vector2 Velocity { get; protected set; }
+        public Vector2 Velocity { get { return this.velocity; } protected set { this.velocity = value; } }
 
         public int Damage { get; protected set; }
 
@@ -54,11 +54,11 @@ namespace MonsterQuest.Models.Bullets
         {
             if (this.bulletDirection == BulletDirection.Right)
             {
-                this.Position += velocity;
+                this.Position +=this.Velocity;
             }
             else
             {
-                this.Position -= velocity;
+                this.Position -= this.Velocity;
             }
 
             if (this.Position.X > 700 || this.Position.X < -5)

@@ -10,22 +10,22 @@ namespace MonsterQuest.Core.Data
 {
     public class Data : IData
     {
-        private ICollection<Enemy> enemies ;
-        private ICollection<IItem> items;
-        private ICollection<Texture2D> bulletImages = new List<Texture2D>();
+        private IList<Enemy> enemies;
+        private IList<IItem> items;
+        private IList<Texture2D> bulletImages = new List<Texture2D>();
 
         public Data()
         {
-            this.Enemies = new List<Enemy>();
-            this.Items = new List<IItem>();
-            this.BulletImages = new List<Texture2D>();
+            this.enemies = new List<Enemy>();
+            this.items = new List<IItem>();
+            this.bulletImages = new List<Texture2D>();
         }
 
-        public ICollection<Enemy> Enemies { get; private set; }
+        public IList<Enemy> Enemies { get{return this.enemies;} private set { this.enemies = value; } }
 
-        public ICollection<IItem> Items { get; private set; }
+        public IList<IItem> Items { get { return this.items; } private set { this.items = value; } }
 
-        public ICollection<Texture2D> BulletImages { get; private set; }
+        public IList<Texture2D> BulletImages { get { return this.bulletImages; } private set { this.bulletImages = value; } }
 
         public void AddEnemies(Enemy enemy)
         {

@@ -195,17 +195,16 @@ namespace MonsterQuest.Models.Entities.Characters
                         bulletDirection = BulletDirection.Right;
                     }
 
-                    foreach (var image in data.BulletImages)
-                    {
-                        string imageName = image.Name;
-                        if (image.Equals(this.currentBulletType.ToString()))
-                        {
-                            this.bulletImage = image;
-                            break;
-                        }
-                    }
-
-                    //To do Opravi si Factory-to!!!
+                    //foreach (var image in data.BulletImages)
+                    //{
+                    //    string imageName = image.Name;
+                    //    if (image.Equals(this.currentBulletType.ToString()))
+                    //    {
+                    //        this.bulletImage = image;
+                    //        break;
+                    //    }
+                    //}
+                    this.bulletImage = this.data.BulletImages[0];
                     IBullet bullet = this.bulletFactory.CreateBullet(this.currentBulletType.ToString(), this.Position, this.bulletImage, bulletDirection);
 
                     this.AddNewBullet(bullet);

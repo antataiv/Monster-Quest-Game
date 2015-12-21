@@ -9,11 +9,11 @@ namespace MonsterQuest.Interfaces
 {
     public interface IData
     {
-        ICollection<Enemy> Enemies { get; }
+        IList<Enemy> Enemies { get; }
 
-        ICollection<IItem> Items { get; }
+        IList<IItem> Items { get; }
 
-        ICollection<Texture2D> BulletImages { get; }
+        IList<Texture2D> BulletImages { get; }
 
         void AddEnemies(Enemy enemy);
 
