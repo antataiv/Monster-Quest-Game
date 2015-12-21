@@ -101,7 +101,7 @@ namespace MonsterQuest
             //DetectClick();
             this.GenerateObjects(gameTime);
 
-            player.Update(gameTime);
+             player.Update(gameTime);
             //character.IntersectWithEnemies(enemies, this.character.Score);
             foreach (var enemy in this.data.Enemies)
             {
