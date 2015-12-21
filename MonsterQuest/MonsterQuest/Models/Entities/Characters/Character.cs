@@ -126,6 +126,14 @@ namespace MonsterQuest.Models.Entities.Characters
                     characterState = CharacterState.WalkingLeft;
                     SetFrames(characterState);
                     currentFrame++;
+                    
+                    //new logic
+                    if (currentFrame > this.walkingLeftLastFrame)
+                    {
+                        currentFrame = this.walkingLeftInitialFrame;
+                    }
+                    //new logic
+
                     this.CharacterPosition -= this.Velocity;
                 }
                 else if (keyboardState.IsKeyDown(Keys.Right))
@@ -133,6 +141,14 @@ namespace MonsterQuest.Models.Entities.Characters
                     characterState = CharacterState.WalkingRight;
                     SetFrames(characterState);
                     currentFrame++;
+
+                    //new logic
+                    if (currentFrame > this.walkingRightLastFrame)
+                    {
+                        currentFrame = this.walkingRightInitialFrame;
+                    }
+                    //new logic
+
                     this.CharacterPosition += this.Velocity;
                 }
                 else if (keyboardState.IsKeyUp(Keys.Right) && keyboardState.IsKeyUp(Keys.Left) && characterState == CharacterState.WalkingRight)
