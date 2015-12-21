@@ -12,8 +12,6 @@ namespace MonsterQuest.Interfaces
 
         BulletType CurrentWeapon { get; }
 
-        int Score { get; }
-
         int Gold { get; }
     }
 }

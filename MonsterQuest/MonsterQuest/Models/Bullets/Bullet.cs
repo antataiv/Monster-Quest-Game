@@ -91,16 +91,7 @@ namespace MonsterQuest.Models.Bullets
 
         public void ApplyDamage(ICollection<Enemy> enemies)
         {
-            foreach (var enemy in enemies)
-            {
-                if (this.isActive && CollisionDetected(enemy))
-                {
-                    enemy.ReceiveDamage(this.Damage);
-                    this.isActive = false;
-
-                    return;
-                }
-            }
+            
         }
 
 

@@ -20,6 +20,7 @@ namespace MonsterQuest.Models.Entities.Enemies
         private const int WalkingRightInitialFrame = 55;
         private const int WalkingLeftLastFrame = 23;
         private const int WalkingRightLastFrame = 60;
+        private const int DefaultSkeletonScore = 15;
 
         public Skeleton(Texture2D image)
             : base(image, DefaultSkeletonHealth, DefaultSkeletonDamage, DefaultSkeletionSpriteRows, DefaultSkeletonSpriteCols,
@@ -28,6 +29,7 @@ namespace MonsterQuest.Models.Entities.Enemies
             this.Position = DefaultSkeletonPosition;
             this.Velocity = DefaultSkeletonVelocity;
             this.BoundsOffset = DefaultSkeletonOffset;
+            this.Score = DefaultSkeletonScore;
         }
 
         public override void Attack()

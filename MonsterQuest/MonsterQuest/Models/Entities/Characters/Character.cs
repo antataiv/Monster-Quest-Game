@@ -106,8 +106,8 @@ namespace MonsterQuest.Models.Entities.Characters
 
         public int Score
         {
-            get;
-            set;
+            get { return this.score; }
+            set { this.score = value; }
         }
 
         public Vector2 BoundsOffset { get; protected set; }
@@ -126,7 +126,7 @@ namespace MonsterQuest.Models.Entities.Characters
                     characterState = CharacterState.WalkingLeft;
                     SetFrames(characterState);
                     currentFrame++;
-                    
+
                     //new logic
                     if (currentFrame > this.walkingLeftLastFrame)
                     {
@@ -135,6 +135,10 @@ namespace MonsterQuest.Models.Entities.Characters
                     //new logic
 
                     this.CharacterPosition -= this.Velocity;
+                    if (CharacterPosition.X<0)
+                    {
+                        this.CharacterPosition += this.Velocity;
+                    }
                 }
                 else if (keyboardState.IsKeyDown(Keys.Right))
                 {
@@ -150,6 +154,10 @@ namespace MonsterQuest.Models.Entities.Characters
                     //new logic
 
                     this.CharacterPosition += this.Velocity;
+                    if (this.characterPosition.X >700)
+                    {
+                        this.characterPosition -= this.Velocity;
+                    }
                 }
                 else if (keyboardState.IsKeyUp(Keys.Right) && keyboardState.IsKeyUp(Keys.Left) && characterState == CharacterState.WalkingRight)
                 {
@@ -296,6 +304,11 @@ namespace MonsterQuest.Models.Entities.Characters
         {
             var activeBullets = this.bullets.Where(b => b.IsActive == true).ToList();
             this.bullets = activeBullets;
+        }
+
+        public void IncrementScore(int score)
+        {
+            this.Score += score;
         }
 
     }

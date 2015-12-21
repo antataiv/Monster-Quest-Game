@@ -56,6 +56,7 @@
     <Compile Include="Interfaces\IEnemyFactory.cs" />
     <Compile Include="Interfaces\IItemFactory.cs" />
     <Compile Include="Interfaces\IBulletFactory.cs" />
+    <Compile Include="Interfaces\IScore.cs" />
     <Compile Include="Models\Bullets\Bullet.cs" />
     <Compile Include="Models\Bullets\RegularBullet.cs" />
     <Compile Include="Models\Entities\Characters\Character.cs" />

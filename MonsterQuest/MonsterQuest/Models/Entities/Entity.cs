@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MonsterQuest.Models.Entities
 {
-    public abstract class Entity : IEntity
+    public abstract class Entity : IEntity, IScore
     {
         private Texture2D image;
         private Rectangle bounds;
@@ -18,6 +18,7 @@ namespace MonsterQuest.Models.Entities
         private int height;
         private int health;
         private int damage;
+        private int score;
 
         private bool isAlive = true;
 
@@ -45,7 +46,7 @@ namespace MonsterQuest.Models.Entities
 
         public int Height { get { return this.height; } protected set { this.height = value; } }
 
-        public int Health { get { return this.health; } protected set { this.health= value; } }
+        public int Health { get { return this.health; } protected set { this.health = value; } }
 
         public int Damage { get { return this.damage; } protected set { this.damage = value; } }
 
@@ -53,6 +54,8 @@ namespace MonsterQuest.Models.Entities
         {
             get { return this.isAlive; }
         }
+
+        public int Score { get { return this.score; } set { this.score = value; } }
 
         public abstract void Update(GameTime gameTime);
 

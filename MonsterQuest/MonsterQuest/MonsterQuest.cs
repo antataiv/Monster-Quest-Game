@@ -101,7 +101,7 @@ namespace MonsterQuest
             //DetectClick();
             this.GenerateObjects(gameTime);
 
-             player.Update(gameTime);
+            player.Update(gameTime);
             //character.IntersectWithEnemies(enemies, this.character.Score);
             foreach (var enemy in this.data.Enemies)
             {
@@ -116,7 +116,6 @@ namespace MonsterQuest
                 {
                     enemy.HasAppliedDamage = false;
                 }
-
             }
 
             foreach (var item in this.data.Items)
@@ -133,10 +132,24 @@ namespace MonsterQuest
             foreach (var bullet in player.Bullets)
             {
                 bullet.Update(gameTime);
+
+                foreach (var enemy in this.data.Enemies)
+                {
+                    if (bullet.CollisionDetected(enemy))
+                    {
+                        enemy.ReceiveDamage(bullet.Damage);
+                        bullet.IsActive = false;
+                        if (!enemy.IsAlive)
+                        {
+                            this.player.IncrementScore(enemy.Score);
+                        }
+                    }
+                }
+
                 bullet.ApplyDamage(this.data.Enemies);
             }
 
-            this.Window.Title = this.data.Items.Count.ToString();
+            this.Window.Title = this.data.Enemies.Count.ToString();
 
             this.data.RemoveInactiveElements();
             this.player.RemoveInactiveBullets();
