@@ -16,6 +16,10 @@ namespace MonsterQuest.Models.Items
         private const int numOfCols = 12;
         private const int row = 0;
         private const int col = 9;
+        private int health = 15;
+
+
+        public int Health { get { return this.health; } set { this.health = value; } }
 
         //int activeTimeLimit, Texture2D image,
         // int numOfRows, int numOfCols, int row, int col
@@ -23,9 +27,8 @@ namespace MonsterQuest.Models.Items
             : base(activeTimeLimit, image, numOfRows, numOfCols, row, col)
         {
             this.BoundsOffset = boundOffset;
-            int xPosition = this.GenerateRandomPosition();
-            this.Position = new Vector2(xPosition, 0);
             this.Velocity = defaultVelocity;
         }
+
     }
 }

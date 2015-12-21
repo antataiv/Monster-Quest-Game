@@ -33,21 +33,21 @@ namespace MonsterQuest.Models.Entities
             this.SetBounds();
         }
 
-        public Texture2D Image { get; protected set; }
+        public Texture2D Image { get { return this.image; } protected set { this.image = value; } }
 
-        public Rectangle Bounds { get; protected set; }
+        public Rectangle Bounds { get { return this.bounds; } protected set { this.bounds = value; } }
 
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get { return this.position; } protected set { this.position = value; } }
 
-        public Vector2 Velocity { get; protected set; }
+        public Vector2 Velocity { get { return this.velocity; } protected set { this.velocity = value; } }
 
-        public int Width { get; protected set; }
+        public int Width { get { return this.width; } protected set { this.width = value; } }
 
-        public int Height { get; protected set; }
+        public int Height { get { return this.height; } protected set { this.height = value; } }
 
-        public int Health { get; protected set; }
+        public int Health { get { return this.health; } protected set { this.health= value; } }
 
-        public int Damage { get; private set; }
+        public int Damage { get { return this.damage; } protected set { this.damage = value; } }
 
         public bool IsAlive
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using MonsterQuest.Models.Entities.Enemies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace MonsterQuest.Interfaces
 {
     public interface IEnemyFactory
     {
-        IEntity CreateEntity(string enemyName,Texture2D enemyImage);
+        Enemy CreateEnemy(string enemyName, Texture2D enemyImage);
     }
 }

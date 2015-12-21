@@ -5,7 +5,9 @@ using MonsterQuest.Core.Data;
 using MonsterQuest.Core.Factories;
 using MonsterQuest.Interfaces;
 using MonsterQuest.Models.Entities.Characters;
+using MonsterQuest.Models.Entities.Enemies;
 using MonsterQuest.Models.Items;
+using System;
 using System.Collections.Generic;
 
 namespace MonsterQuest
@@ -29,7 +31,20 @@ namespace MonsterQuest
         private Texture2D backgroundLevel0;
         private Texture2D backgroundLevel1;
         private Texture2D buttonImage;
+        private Texture2D enemyImage;
         private SpriteFont titleFont;
+
+        TimeSpan enemySpawnTime;
+        TimeSpan giftSpawnTime;
+        TimeSpan goldSpawnTime;
+
+        TimeSpan previousSpawnTime;
+        TimeSpan previousSpawnTimePotion;
+        TimeSpan previousSpawnTimeGold;
+
+        private Enemy enemy;
+        private IItem gold;
+        private IItem potion;
 
         public MonsterQuest()
         {
@@ -44,6 +59,13 @@ namespace MonsterQuest
             this.itemFactory = new ItemFactory();
             this.data = new Data();
 
+            previousSpawnTime = TimeSpan.Zero;
+            previousSpawnTimePotion = TimeSpan.Zero;
+            previousSpawnTimeGold = TimeSpan.Zero;
+            enemySpawnTime = TimeSpan.FromSeconds(6.0f);
+            giftSpawnTime = TimeSpan.FromSeconds(5.0f);
+            goldSpawnTime = TimeSpan.FromSeconds(8.0f);
+
             base.Initialize();
         }
 
@@ -55,6 +77,7 @@ namespace MonsterQuest
             backgroundLevel0 = this.Content.Load<Texture2D>("Images/level0_background");
             buttonImage = this.Content.Load<Texture2D>("Images/buttons_background");
             backgroundLevel1 = this.Content.Load<Texture2D>("Images/space_background");
+            enemyImage = this.Content.Load<Texture2D>("Images/skeleton");
 
             titleFont = Content.Load<SpriteFont>("Fonts/title");
             bulletImage = this.Content.Load<Texture2D>("Images/Fireball");
@@ -76,6 +99,7 @@ namespace MonsterQuest
                 Exit();
             }
             //DetectClick();
+            this.GenerateObjects(gameTime);
 
             player.Update(gameTime);
             //character.IntersectWithEnemies(enemies, this.character.Score);
@@ -112,7 +136,8 @@ namespace MonsterQuest
                 bullet.ApplyDamage(this.data.Enemies);
             }
 
-            ////this.Window.Title = character.keys.ToString();
+            this.Window.Title = this.data.Items.Count.ToString();
+
             this.data.RemoveInactiveElements();
             this.player.RemoveInactiveBullets();
             base.Update(gameTime);
@@ -159,6 +184,40 @@ namespace MonsterQuest
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void GenerateObjects(GameTime gameTime)
+        {
+            if (gameTime.TotalGameTime - previousSpawnTime > enemySpawnTime)
+            {
+                previousSpawnTime = gameTime.TotalGameTime;
+
+                enemy = this.enemyFactory.CreateEnemy("Skeleton", enemyImage);
+
+                //enemy = new Enemy(texture, 900, 330, 2.5f);
+
+                this.data.AddEnemies(enemy);
+            }
+
+            if (gameTime.TotalGameTime - previousSpawnTimePotion > giftSpawnTime)
+            {
+                previousSpawnTimePotion = gameTime.TotalGameTime;
+                Texture2D texture = Content.Load<Texture2D>("Images/transparentItems");
+
+                potion = this.itemFactory.CreateItem("Potion", texture);
+
+                this.data.AddItems(potion);
+            }
+
+            if (gameTime.TotalGameTime - previousSpawnTimeGold > goldSpawnTime)
+            {
+                previousSpawnTimeGold = gameTime.TotalGameTime;
+                Texture2D texture = Content.Load<Texture2D>("Images/transparentItems");
+
+                gold = this.itemFactory.CreateItem("Gold", texture);
+
+                this.data.AddItems(gold);
+            }
         }
     }
 }

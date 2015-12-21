@@ -10,7 +10,7 @@ namespace MonsterQuest.Core.Factories
 {
    public class EnemyFactory : IEnemyFactory
     {
-        public IEntity CreateEntity(string enemyName, Texture2D enemyImage)
+        public Enemy CreateEnemy(string enemyName, Texture2D enemyImage)
         {
             switch (enemyName)
             {

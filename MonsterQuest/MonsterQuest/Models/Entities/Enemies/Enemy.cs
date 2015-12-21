@@ -56,9 +56,9 @@ namespace MonsterQuest.Models.Entities.Enemies
             this.Height = this.Image.Height / this.rows;
         }
 
-        public bool HasAppliedDamage { get; set; }
+        public bool HasAppliedDamage { get { return this.hasAppliedDamage; } set { this.hasAppliedDamage = value; } }
 
-        public Vector2 BoundsOffset { get; protected set; }
+        public Vector2 BoundsOffset { get { return this.boundOffset; } protected set { this.boundOffset = value; } }
 
         public override void Update(GameTime gameTime)
         {
@@ -71,11 +71,22 @@ namespace MonsterQuest.Models.Entities.Enemies
                 {
                     this.enemyState = EnemyState.WalkingRight;
                     this.SetFrames(this.enemyState);
+                    
+                    //
+                    if (currentFrame>this.walkingRightLastFrame)
+                    {
+                        currentFrame = walkingRightInitialFrame;
+                    }
                 }
                 if (this.Position.X > 800)
                 {
                     this.enemyState = EnemyState.WalkingLeft;
                     this.SetFrames(this.enemyState);
+
+                    if (currentFrame > this.walkingLeftLastFrame)
+                    {
+                        currentFrame = walkingLeftLastFrame;
+                    }
                 }
 
                 if (this.enemyState == EnemyState.WalkingLeft)

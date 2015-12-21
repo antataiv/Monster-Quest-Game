@@ -14,7 +14,7 @@ namespace MonsterQuest.Models.Entities.Enemies
         private const int DefaultSkeletionSpriteRows = 8;
         private const int DefaultSkeletonSpriteCols = 9;
         private Vector2 DefaultSkeletonOffset = new Vector2(30, 10);
-        private Vector2 DefaultSkeletonVelocity = new Vector2(2.5f, 0);
+        private Vector2 DefaultSkeletonVelocity = new Vector2(7.5f, 0);
         private Vector2 DefaultSkeletonPosition = new Vector2(900, 330);
         private const int WalkingLeftInitialFrame = 18;
         private const int WalkingRightInitialFrame = 55;

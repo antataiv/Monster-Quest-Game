@@ -20,7 +20,7 @@ namespace MonsterQuest.Models.Bullets
         private BulletDirection bulletDirection;
         private bool isActive = true;
 
-        protected Bullet(Texture2D image, int damage, Vector2 position,BulletDirection bulletDirection)
+        protected Bullet(Texture2D image, int damage, Vector2 position, BulletDirection bulletDirection)
         {
             this.Image = image;
             this.Damage = damage;
@@ -28,15 +28,15 @@ namespace MonsterQuest.Models.Bullets
             this.bulletDirection = bulletDirection;
         }
 
-        public Texture2D Image { get; protected set; }
+        public Texture2D Image { get { return this.image; } protected set { this.image = value; } }
 
-        public Rectangle Bounds { get; protected set; }
+        public Rectangle Bounds { get { return this.bounds; } protected set { this.bounds = value; } }
 
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get { return this.position; } protected set { this.position = value; } }
 
         public Vector2 Velocity { get { return this.velocity; } protected set { this.velocity = value; } }
 
-        public int Damage { get; protected set; }
+        public int Damage { get { return this.damage; } protected set { this.damage = value; } }
 
         public bool IsActive
         {
@@ -54,14 +54,14 @@ namespace MonsterQuest.Models.Bullets
         {
             if (this.bulletDirection == BulletDirection.Right)
             {
-                this.Position +=this.Velocity;
+                this.Position += this.Velocity;
             }
             else
             {
                 this.Position -= this.Velocity;
             }
 
-            if (this.Position.X > 700 || this.Position.X < -5)
+            if (this.Position.X > 800 || this.Position.X < -5)
             {
                 isActive = false;
             }
@@ -103,6 +103,6 @@ namespace MonsterQuest.Models.Bullets
             }
         }
 
-        
+
     }
 }

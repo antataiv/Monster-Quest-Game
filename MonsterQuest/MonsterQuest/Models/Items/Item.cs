@@ -35,26 +35,28 @@ namespace MonsterQuest.Models.Items
             this.Row = row;
             this.Col = col;
             this.IsActive = true;
+            var xPosition = this.GenerateRandomPosition();
+            this.position = new Vector2(xPosition, 0);
         }
         public Vector2 BoundsOffset { get;protected set; }
 
-        public int NumOfCols { get; protected set; }
+        public int NumOfCols { get { return this.numOfCols; } protected set { this.numOfCols = value; } }
 
-        public int NumOfRows { get; protected set; }
+        public int NumOfRows { get { return this.numOfRows; } protected set { this.numOfRows = value; } }
 
-        public int Row { get; protected set; }
+        public int Row { get { return this.row; } protected set { this.row = value; } }
 
-        public int Col { get; protected set; }
+        public int Col { get { return this.col; } protected set { this.col = value; } }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get { return this.isActive; } set { this.isActive = value; } }
 
-        public Texture2D Image { get; protected set; }
+        public Texture2D Image { get{return this.image;} protected set { this.image = value; } }
 
-        public Rectangle Bounds { get; protected set; }
+        public Rectangle Bounds { get { return this.bounds; } protected set { this.bounds = value; } }
 
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get { return this.position; } protected set { this.position = value; } }
 
-        public Vector2 Velocity { get; protected set; }
+        public Vector2 Velocity { get { return this.velocity; } protected set { this.velocity = value; } }
 
         public void Update(GameTime gameTime)
         {
