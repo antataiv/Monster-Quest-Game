@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IslandsQuest.Exceptions;
+using System;
+using System.Windows.Forms;
 
 namespace MonsterQuest
 {
@@ -14,8 +16,21 @@ namespace MonsterQuest
         [STAThread]
         static void Main()
         {
-            using (var game = new MonsterQuest())
-                game.Run();
+            try
+            {
+                using (var game = new MonsterQuest())
+                {
+                    game.Run();
+                }
+            }
+            catch (ResourceNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 #endif

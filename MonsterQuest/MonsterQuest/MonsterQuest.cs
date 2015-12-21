@@ -14,7 +14,7 @@ using MonsterQuest.Struct;
 
 namespace MonsterQuest
 {
-   public class MonsterQuest : Game
+    public class MonsterQuest : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -47,7 +47,7 @@ namespace MonsterQuest
         private Rectangle creditsArea = new Rectangle(590, 20, 160, 90);
 
         private EventListener listener;
-        
+
         private Enemy enemy;
         private IItem gold;
         private IItem potion;
