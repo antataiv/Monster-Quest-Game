@@ -31,7 +31,7 @@ namespace MonsterQuest.Models.Entities.Characters
             : base(image,
                 DefaultElfHealth, DefaultElfDamage, DefaultElfSpriteRows, DefaultElfSpriteCols,
                 WalkingLeftInitialFrame, WalkingRightInitialFrame, WalkingLeftLastFrame, WalkingRightLastFrame,
-                bulletFactory, data, DefaultElfOffset, DefaultElfVelocity, DefaultElfPosition)
+                bulletFactory, data)
         {
             this.Image = image;
             this.CharacterPosition = DefaultElfPosition;

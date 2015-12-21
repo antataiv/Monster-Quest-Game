@@ -57,10 +57,7 @@ namespace MonsterQuest.Models.Entities.Characters
             int walkingLeftLastFrame,
             int walkingRightLastFrame,
             IBulletFactory weaponFactory,
-            IData data,
-            Vector2 DefaultElfOffset,
-            Vector2 DefaultElfVelocity,
-            Vector2 DefaultElfPosition)
+            IData data)
             : base(image, health, damage)
         {
             this.Score = DefaultPlayerScore;
@@ -74,7 +71,7 @@ namespace MonsterQuest.Models.Entities.Characters
             this.walkingRightLastFrame = walkingRightLastFrame;
             this.startY = this.Position.Y;
 
-            //this.characterPosition = new Vector2(0, 330);
+            this.characterPosition = this.Position;
 
             this.bulletFactory = weaponFactory;
             this.data = data;
@@ -84,12 +81,16 @@ namespace MonsterQuest.Models.Entities.Characters
 
 
             //
-            this.CharacterPosition = DefaultElfPosition;
-            this.Velocity = DefaultElfVelocity;
-            this.BoundsOffset = DefaultElfOffset;
+            //this.CharacterPosition = DefaultElfPosition;
+            //this.Velocity = DefaultElfVelocity;
+            //this.BoundsOffset = DefaultElfOffset;
         }
 
-        public Vector2 CharacterPosition{get;set;}
+        public Vector2 CharacterPosition
+        {
+            get { return this.characterPosition; }
+            set { this.characterPosition = value; }
+        }
 
         public int Gold { get; private set; }
 
@@ -189,7 +190,7 @@ namespace MonsterQuest.Models.Entities.Characters
                     }
 
                     //To do Opravi si Factory-to!!!
-                    IBullet bullet = this.bulletFactory.CreateBullet(this.currentBulletType.ToString(),this.Position,this.bulletImage,bulletDirection);
+                    IBullet bullet = this.bulletFactory.CreateBullet(this.currentBulletType.ToString(), this.Position, this.bulletImage, bulletDirection);
 
                     this.AddNewBullet(bullet);
                 }
@@ -265,7 +266,7 @@ namespace MonsterQuest.Models.Entities.Characters
             switch (itemName)
             {
                 case "Potion":
-                    int health =(int)item.GetType().GetProperty("Health").GetValue(item, null);
+                    int health = (int)item.GetType().GetProperty("Health").GetValue(item, null);
                     this.Health += health;
                     break;
                 case "Gold":
@@ -281,6 +282,6 @@ namespace MonsterQuest.Models.Entities.Characters
             var activeBullets = this.bullets.Where(b => b.IsActive == true).ToList();
             this.bullets = activeBullets;
         }
-        
+
     }
 }
