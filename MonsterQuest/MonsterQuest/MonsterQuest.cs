@@ -61,18 +61,19 @@ namespace MonsterQuest
 
         protected override void Initialize()
         {
-            this.bulletFactory = new BulletFactory();
-            this.enemyFactory = new EnemyFactory();
-            this.itemFactory = new ItemFactory();
-            this.data = new Data();
-            gameState = new GameState(0);
-            previousSpawnTime = TimeSpan.Zero;
-            previousSpawnTimePotion = TimeSpan.Zero;
-            previousSpawnTimeGold = TimeSpan.Zero;
-            enemySpawnTime = TimeSpan.FromSeconds(6.0f);
-            giftSpawnTime = TimeSpan.FromSeconds(5.0f);
-            goldSpawnTime = TimeSpan.FromSeconds(8.0f);
-
+            
+                this.bulletFactory = new BulletFactory();
+                this.enemyFactory = new EnemyFactory();
+                this.itemFactory = new ItemFactory();
+                this.data = new Data();
+                gameState = new GameState(0);
+                previousSpawnTime = TimeSpan.Zero;
+                previousSpawnTimePotion = TimeSpan.Zero;
+                previousSpawnTimeGold = TimeSpan.Zero;
+                enemySpawnTime = TimeSpan.FromSeconds(6.0f);
+                giftSpawnTime = TimeSpan.FromSeconds(5.0f);
+                goldSpawnTime = TimeSpan.FromSeconds(8.0f);
+            
             base.Initialize();
         }
 
@@ -101,15 +102,15 @@ namespace MonsterQuest
 
         protected override void Update(GameTime gameTime)
         {
-            if (!this.listener.GameOver)
+            this.DetectClick();
+            if (gameState.Level == 1  && !listener.GameOver )
             {
                 KeyboardState state = Keyboard.GetState();
                 if (state.IsKeyDown(Keys.Escape))
                 {
                     Exit();
                 }
-                this.DetectClick();
-
+                //this.DetectClick();
                 this.GenerateObjects(gameTime);
 
                 player.Update(gameTime);
@@ -336,6 +337,10 @@ namespace MonsterQuest
         {
             spriteBatch.DrawString(titleFont, "From the beginning of time, mankind has been riveted by accounts of mysterious", new Vector2(30, 120), Color.Blue);
             spriteBatch.DrawString(titleFont, "creatures, from mega hogs to vampires and giant spiders.", new Vector2(30, 150), Color.Blue);
+            spriteBatch.DrawString(titleFont, "Your objective is to avoid intersecting monsters and kill as many of them as", new Vector2(30, 180), Color.Blue);
+            spriteBatch.DrawString(titleFont, "possible in this haunted forest.", new Vector2(30, 210), Color.Blue);
+            spriteBatch.DrawString(titleFont, "On your way through the forest collect some magical items to help you", new Vector2(30, 240), Color.Blue);
+            spriteBatch.DrawString(titleFont, "survive on your journey.", new Vector2(30, 270), Color.Blue);
         }
 
         private void DrawGameOver()
