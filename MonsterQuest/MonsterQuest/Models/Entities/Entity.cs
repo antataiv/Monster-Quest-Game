@@ -86,6 +86,7 @@ namespace MonsterQuest.Models.Entities
             if (this.health <= 0)
             {
                 this.isAlive = false;
+                this.health = 0;
             }
         }
     }

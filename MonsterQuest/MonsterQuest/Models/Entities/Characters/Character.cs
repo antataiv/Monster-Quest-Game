@@ -227,7 +227,7 @@ namespace MonsterQuest.Models.Entities.Characters
                 previousKeyboardState = keyboardState;
                 timeSinceLastFrame -= millisecondPerFrame;
 
-                if (this.Health < 99)
+                if (this.Health <= 0)
                 {
                     OnPointChanged(EventArgs.Empty);
                 }

@@ -71,42 +71,30 @@ namespace MonsterQuest.Models.Entities.Enemies
                 {
                     this.enemyState = EnemyState.WalkingRight;
                     this.SetFrames(this.enemyState);
-                    
-                    //
-                    if (currentFrame>this.walkingRightLastFrame)
-                    {
-                        currentFrame = walkingRightInitialFrame;
-                    }
                 }
                 if (this.Position.X > 800)
                 {
                     this.enemyState = EnemyState.WalkingLeft;
                     this.SetFrames(this.enemyState);
-
-                    if (currentFrame > this.walkingLeftLastFrame)
-                    {
-                        currentFrame = walkingLeftLastFrame;
-                    }
                 }
 
                 if (this.enemyState == EnemyState.WalkingLeft)
                 {
-                    //if (currentFrame < 18 || currentFrame > 23)
-                    //{
-                    //    currentFrame = 19;
-                    //}
-
-                    //this.Position.X -= 2.5f;
                     this.Position -= this.Velocity;
+
+                    if (currentFrame >= this.walkingLeftLastFrame || currentFrame<this.walkingLeftInitialFrame)
+                    {
+                        currentFrame = walkingLeftInitialFrame;
+                    }
                 }
                 else
                 {
-                    //if (currentFrame < 55 || currentFrame > 60)
-                    //{
-                    //    currentFrame = 56;
-                    //}
-                    //XPosition += 2.5f;
                     this.Position += this.Velocity;
+
+                    if (currentFrame > this.walkingRightLastFrame)
+                    {
+                        currentFrame = walkingRightInitialFrame;
+                    }
                 }
 
                 currentFrame++;
@@ -126,6 +114,8 @@ namespace MonsterQuest.Models.Entities.Enemies
                                             this.Width - 2 * (int)boundOffset.X,
                                             this.Height - 2 * (int)boundOffset.Y);
 
+            Rectangle target = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.Width, this.Height);
+
             spriteBatch.Draw(this.Image, this.Bounds, sourceRectangle, Color.White);
         }
 
@@ -133,14 +123,14 @@ namespace MonsterQuest.Models.Entities.Enemies
         {
             if (state == EnemyState.WalkingRight)
             {
-                if (currentFrame <= this.walkingRightInitialFrame && currentFrame > this.walkingRightLastFrame)
+                if (currentFrame < this.walkingRightInitialFrame || currentFrame >= this.walkingRightLastFrame)
                 {
                     currentFrame = this.walkingRightInitialFrame;
                 }
             }
             else if (state == EnemyState.WalkingLeft)
             {
-                if (currentFrame <= this.walkingLeftInitialFrame && currentFrame > this.walkingLeftLastFrame)
+                if (currentFrame <= this.walkingLeftInitialFrame || currentFrame > this.walkingLeftLastFrame)
                 {
                     currentFrame = this.walkingLeftInitialFrame;
                 }

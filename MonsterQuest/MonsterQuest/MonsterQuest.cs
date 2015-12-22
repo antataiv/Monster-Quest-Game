@@ -14,7 +14,7 @@ using MonsterQuest.Struct;
 
 namespace MonsterQuest
 {
-   public class MonsterQuest : Game
+    public class MonsterQuest : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -47,7 +47,7 @@ namespace MonsterQuest
         private Rectangle creditsArea = new Rectangle(590, 20, 160, 90);
 
         private EventListener listener;
-        
+
         private Enemy enemy;
         private IItem gold;
         private IItem potion;
@@ -101,69 +101,72 @@ namespace MonsterQuest
 
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.Escape))
+            if (!this.listener.GameOver)
             {
-                Exit();
-            }
-            this.DetectClick();
-            this.GenerateObjects(gameTime);
-
-            player.Update(gameTime);
-            //character.IntersectWithEnemies(enemies, this.character.Score);
-            foreach (var enemy in this.data.Enemies)
-            {
-                enemy.Update(gameTime);
-                var isColided = player.CollisionDetected(enemy);
-                if (isColided && !enemy.HasAppliedDamage)
+                KeyboardState state = Keyboard.GetState();
+                if (state.IsKeyDown(Keys.Escape))
                 {
-                    player.ReceiveDamage(enemy.Damage);
-                    enemy.HasAppliedDamage = true;
+                    Exit();
                 }
-                else if (!isColided && enemy.HasAppliedDamage)
-                {
-                    enemy.HasAppliedDamage = false;
-                }
-            }
+                this.DetectClick();
 
-            foreach (var item in this.data.Items)
-            {
-                item.Update(gameTime);
-                var isColided = player.CollisionDetected(item);
-                if (isColided && item.IsActive)
-                {
-                    player.CollectItem(item);
-                    item.IsActive = false;
-                }
-            }
+                this.GenerateObjects(gameTime);
 
-            foreach (var bullet in player.Bullets)
-            {
-                bullet.Update(gameTime);
-
+                player.Update(gameTime);
+                //character.IntersectWithEnemies(enemies, this.character.Score);
                 foreach (var enemy in this.data.Enemies)
                 {
-                    if (bullet.CollisionDetected(enemy))
+                    enemy.Update(gameTime);
+                    var isColided = player.CollisionDetected(enemy);
+                    if (isColided && !enemy.HasAppliedDamage)
                     {
-                        enemy.ReceiveDamage(bullet.Damage);
-                        bullet.IsActive = false;
-                        if (!enemy.IsAlive)
-                        {
-                            this.player.IncrementScore(enemy.Score);
-                        }
+                        player.ReceiveDamage(enemy.Damage);
+                        enemy.HasAppliedDamage = true;
+                    }
+                    else if (!isColided && enemy.HasAppliedDamage)
+                    {
+                        enemy.HasAppliedDamage = false;
                     }
                 }
 
-                bullet.ApplyDamage(this.data.Enemies);
+                foreach (var item in this.data.Items)
+                {
+                    item.Update(gameTime);
+                    var isColided = player.CollisionDetected(item);
+                    if (isColided && item.IsActive)
+                    {
+                        player.CollectItem(item);
+                        item.IsActive = false;
+                    }
+                }
+
+                foreach (var bullet in player.Bullets)
+                {
+                    bullet.Update(gameTime);
+
+                    foreach (var enemy in this.data.Enemies)
+                    {
+                        if (bullet.CollisionDetected(enemy))
+                        {
+                            enemy.ReceiveDamage(bullet.Damage);
+                            bullet.IsActive = false;
+                            if (!enemy.IsAlive)
+                            {
+                                this.player.IncrementScore(enemy.Score);
+                            }
+                        }
+                    }
+
+                    bullet.ApplyDamage(this.data.Enemies);
+                }
+
+                this.Window.Title = this.data.Enemies.Count.ToString();
+
+                this.data.RemoveInactiveElements();
+                this.player.RemoveInactiveBullets();
+                base.Update(gameTime);
             }
-
-            this.Window.Title = this.data.Enemies.Count.ToString();
-
-            this.data.RemoveInactiveElements();
-            this.player.RemoveInactiveBullets();
-            base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
