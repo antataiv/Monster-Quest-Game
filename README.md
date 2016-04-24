@@ -1,2 +1,2 @@
 # Monster Quest Game
-Software University OOP Teamwork Project
+Software University OOP Teamwork Project.
